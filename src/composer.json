@@ -1,0 +1,13 @@
+{
+    "name": "anar/printful",
+    "description": "Printful technical interview task",
+    "autoload": {
+        "psr-4":{
+            "Printful\\": "app/"
+        }
+    },
+    "require": {
+        "phpunit/phpunit": "^7.0.2",
+        "twig/twig": "^2.0"
+    }
+}

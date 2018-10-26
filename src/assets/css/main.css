@@ -1,0 +1,108 @@
+body,html {
+    background: linear-gradient(45deg, #BB1881, #F88B50) no-repeat;
+    height: 100%;  
+}
+
+.container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    max-width: 960px;
+}
+
+.col {
+    height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    overflow: hidden;
+}
+
+.item {
+    width: 100%;
+    min-height: 50px;
+    display: block;
+    padding: 5px;
+    text-align: center;
+    line-height: 50px;
+    background: #fefefe;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 7px;
+}
+
+.item:hover {
+    background: #02A9F5;
+    color: #fefefe;
+    transition: all 0.2s linear;
+    -webkit-transition: all 0.2s linear;
+    -moz-transition: all 0.2s linear;
+}
+
+#progressbar {
+    width: 80%;
+    height: 20px;
+    display: block;
+    position: relative;
+    border-radius: 7px;
+    border:1px solid #fefefe;
+}
+
+#progressbar-active {
+    width: 0;
+    height: 20px;
+    display: block;
+    position: relative;
+    border-radius: 7px;
+    background: #02A9F5;
+}
+
+
+input[type="text"] {
+    padding: 4px;
+    width: 140px;
+    margin-top: 2px 0 2px 0;
+    width: 240px;
+    border-radius: 7px;
+    border: 0;
+    outline: none;
+    padding: 8px;
+    border:1px solid #fff;
+    display: block;
+}
+
+input[type="text"]:focus {
+    border:1px solid #02A9F5;
+    box-shadow: 1px 1px 1px 02A9F5;
+}
+
+select {
+    width: 259px;
+    display: block;
+    margin: 2px 0 2px 0;
+    height: 32px;
+}
+
+button {
+    background: #02A9F5;
+    padding: 7px;
+    font-size: 15px;
+    color:#fff;
+    margin: 5px 0 0 0;
+    border: 0;
+    border-radius: 7px;
+    width: 259px;
+    cursor: pointer;
+}

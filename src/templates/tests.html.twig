@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col">
+            <h3>Some final recommendations have to be made around folder and file names. As a general rule make sure that you use lower case letters in all folder and file names. When using multiple words to name a file or a folder separate them with a hyphen</h3>
+        </div>
+        <div class="col">
+            <div class="item" onclick="answerQuestion(this)" data-answer="0">a) but where do you</div>
+            <div class="item" onclick="answerQuestion(this)" data-answer="1">b) but where do you</div>
+        </div>
+        <div class="col">
+            <div class="item" onclick="answerQuestion(this)" data-answer="2">c) but where do you</div>
+            <div class="item" onclick="answerQuestion(this)" data-answer="3">d) but where do you</div>
+        </div>
+        <div class="col">
+            <div id="progressbar">
+                <div id="progressbar-active"></div>
+            </div>
+        </div>
+        <div class="col">
+            <button id="next" onclick="nextQuestion()">Next</button>
+        </div>
+    </div>
+{% endblock %}

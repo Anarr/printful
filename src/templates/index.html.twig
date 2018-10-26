@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <div class="form">
+        <form method="POST" id="quizForm">
+            <input type="text" name="username" id="username">
+            <select name="quiz_type" id="quiz_type">
+                <option value="0">Choose test</option>
+                {% for quiz in quizList %}
+                    <option value="{{quiz.id}}">{{quiz.name}}</option>
+                {% endfor %}
+            </select>
+            <button onclick="return validateQuizForm()">Start</button>
+        </form>
+    </div>
+{% endblock content %}

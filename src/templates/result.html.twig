@@ -5,6 +5,7 @@
         <div class="col">
             <h1>Thanks, {{user.username}}!</h1>
         </div>
-        <h2>Your responded correctly 3 out of 4 questions.</2>
+        
+        <h2>Your responded correctly {{result.wrong_answer}} out of {{result.correct_answer + result.wrong_answer}} questions.</2>
     </div>
 {% endblock content %}

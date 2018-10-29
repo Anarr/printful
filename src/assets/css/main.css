@@ -27,11 +27,11 @@ body,html {
     justify-content: center;
     align-items: center;
     width: 100%;
-    overflow: hidden;
+    flex-wrap: wrap;
 }
 
 .item {
-    width: 100%;
+    width: 45%;
     min-height: 50px;
     display: block;
     padding: 5px;
@@ -105,4 +105,8 @@ button {
     border-radius: 7px;
     width: 259px;
     cursor: pointer;
+}
+
+#error_username, #error_quiz {
+    display: none;
 }

@@ -29,4 +29,50 @@ class QuizController
             'data' => $this->model->getQuizQuestions($quizId)
         ];
     }
+
+    /**
+     * add Quiz results
+     */
+
+     public function addQuizResults(int $userId, array $answers): array
+     {
+        $status = 1;
+        $correctAnswerCount = 0;
+        $wrongAnswerCount = 0;
+
+        if (is_array($answers['content']) && !empty($answers['quiz_id'])) {
+
+            $quizAnswers = $this->model->getQuizAnswers($answers['quiz_id']);
+
+
+            foreach($quizAnswers as $key => $value) {
+
+                if ($answers['content'][$key]['question_id'] == $value['id'] && $answers['content'][$key]['answer'] == $value['answer']) {
+                    $correctAnswerCount++;
+                } elseif ($answers['content'][$key]['question_id'] == $value['id'] && $answers['content'][$key]['answer'] != $value['answer']) {
+                    $wrongAnswerCount++;
+                }
+
+            }
+
+            $quizResult = [
+                'quiz_id' => $answers['quiz_id'],
+                'correct_answer' => $correctAnswerCount,
+                'wrong_answer' => $wrongAnswerCount
+            ];
+
+            $result = $this->model->addQuizResults($userId, $quizResult);
+        }
+
+        return json_encode([
+            'status' => $status,
+            'data' => $result ?: []
+        ]);
+    }
+
+    public function getUserQuizResult(int $userId, int $quizId): array
+    {
+        $result = $this->model->getUserQuizResult($userId, $quizId);
+        return $result ?: [];
+    }
 }

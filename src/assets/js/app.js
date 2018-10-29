@@ -4,10 +4,7 @@
 let quizForm = document.getElementById('quizForm'),
     progressbarWidth = document.getElementById('progressbar') != null ? document.getElementById('progressbar').offsetWidth : 0,
     answers = document.getElementsByClassName('item') != null ? document.getElementsByClassName('item') : '',
-    questionCount = 0;
-
-
-let activeProgressBarWidth = Math.floor(progressbarWidth/questionCount) ,
+    questionCount = 0,
     questionStep = 0,
     questionId = 0,
     selectedVariant = -1,
@@ -15,8 +12,6 @@ let activeProgressBarWidth = Math.floor(progressbarWidth/questionCount) ,
 
 
 /**
- * @param username display current user name
- * @param quizType display selected quiz type
  * start quiz after start button click
  */
 
@@ -30,19 +25,24 @@ validateQuizForm = () => {
 
     
     if (username.value.length === 0 || username.value.length < 4) {
-        username.style.border = "4px solid red";
+        username.style.border = "2px solid #fff";
         errors.username = true;
+        username.nextElementSibling.style.display = 'block';
     } else {
-        username.style.border = "0px solid red";
+        username.style.border = "0px solid #fff";
         errors.username = false;
+        username.nextElementSibling.style.display = 'none';
     }
 
     if (parseInt(quizType.value) == 0) {
-        quizType.style.border = "4px solid red";
+        quizType.style.border = "2px solid #fff";
         errors.quiz_type = true;
+        quizType.nextElementSibling.style.display = 'block';
+
     } else {
-        quizType.style.border = "0px solid red";
+        quizType.style.border = "0px solid #fff";
         errors.quiz_type = false;
+        quizType.nextElementSibling.style.display = 'none';
     }
 
     // execute if quiz form pass validation step
@@ -65,10 +65,14 @@ nextQuestion = () => {
     answers = document.getElementsByClassName('item') != null ? document.getElementsByClassName('item') : '';
     activeProgressBarWidth = Math.floor(progressbarWidth/questionCount)
     
-    resetAnswers();
+    // resetAnswers();
     if (selectedVariant != -1) {
         questionStep++;
-        loadQuizContent(questionStep);
+        
+        if (questionCount != questionStep) {
+            loadQuizContent(questionStep);
+        }
+        
         let activeProgressBarCurrentWidth = activeProgressBarWidth*questionStep;
     
         if (activeProgressBarCurrentWidth <= progressbarWidth) {
@@ -77,7 +81,6 @@ nextQuestion = () => {
     
         // check has next question or not
         if (activeProgressBarCurrentWidth + activeProgressBarWidth > progressbarWidth) {
-            selectedVariant = 1;
             document.getElementById('progressbar-active').style.width = progressbarWidth-2 + 'px';
             document.getElementById('next').innerText = "Finish";
             document.getElementById('next').removeEventListener('click', nextQuestion);     
@@ -85,24 +88,28 @@ nextQuestion = () => {
         }
     
         userAnswers.push({
-            'question_id': questionId, 
-            'answer': selectedVariant
-        });      
+            'question_id': parseInt(questionId), 
+            'answer': parseInt(selectedVariant)
+        });   
+        console.log(userAnswers);   
     } else if(questionCount != questionStep) {
         alert('choose at least one answer');
     }
     selectedVariant = - 1;
 }
 
+/**
+ * display quiz results
+ */
 showResult = () => {
-    console.log('aa', userAnswers);
-    // window.location.href = 'result';
-    postData('/questions', {answer: userAnswers})
-    .then(data => console.log(JSON.stringify(data))) // JSON-string from `response.json()` call
+    postData('/questions', {'content': userAnswers})
+    .then(() => window.location.href='result')
     .catch(error => console.error(error));   
 }
+
 /**
  * answer the test
+ * @param {object} e
  */
 function answerQuestion(e) {
     selectedVariant = e.getAttribute('data-answer'),
@@ -116,7 +123,8 @@ function answerQuestion(e) {
  */
 resetAnswers = () => {
     for (element of answers) {
-        element.style.backgroundColor = "#fefefe";
+        // element.style.backgroundColor = "#fefefe";
+        element.removeAttribute('style');
     }
 }
 
@@ -132,7 +140,7 @@ function getData() {
 
 /**
  * load each question options
- * @param {*} questionStep 
+ * @param {int} questionStep
  */
 async function loadQuizContent(questionStep) {
     let content = await getData();
@@ -148,7 +156,7 @@ async function loadQuizContent(questionStep) {
             <div class="item" onclick="answerQuestion(this)" data-answer="${element.option_order}">a) ${element.answer}</div>
         `;
     });    
-    document.getElementsByClassName('quiz_question')[0].innerHTML = content[questionStep].title;
+    document.getElementsByClassName('quiz_question')[0].innerHTML = `<h1>${content[questionStep].title}</h1>`;
     document.getElementsByClassName('quiz_options')[0].innerHTML = quizItem;
 }
 
@@ -158,22 +166,25 @@ async function loadQuizContent(questionStep) {
  */
 loadQuizContent(0);
 
-
+/**
+ * post data
+ * @param {string} url 
+ * @param {object} data 
+ */
 function postData(url = ``, data = {}) {
-
+    console.log(data);
     return fetch(url, {
         method: "POST", 
         mode: "cors",
         cache: "no-cache", 
         credentials: "same-origin",
         headers: {
-            // "Content-Type": "application/json; charset=utf-8",
-            "Content-Type": "application/x-www-form-urlencoded",
-            // "Content-Type": "application/form-data"
-        },
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
         redirect: "follow", 
         referrer: "no-referrer", 
-        body: JSON.stringify(data), 
+        body: JSON.stringify(data) 
     })
-    .then(response => response.json()); // parses response to JSON
+    .then(response => console.log(response));
 }

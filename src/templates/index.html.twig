@@ -7,12 +7,14 @@
     <div class="form">
         <form method="POST" id="quizForm">
             <input type="text" name="username" id="username">
+            <p id="error_username">* Username is required</p>
             <select name="quiz_type" id="quiz_type">
                 <option value="0">Choose test</option>
                 {% for quiz in quizList %}
                     <option value="{{quiz.id}}">{{quiz.title}}</option>
                 {% endfor %}
             </select>
+            <p id="error_quiz">* Quiz is required</p>
             <button onclick="return validateQuizForm()">Start</button>
         </form>
     </div>

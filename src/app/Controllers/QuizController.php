@@ -1,14 +1,32 @@
 <?php
 
-namespace Prinful\Controllers;
+namespace Printful\Controllers;
 
-class Controllers
+use Printful\Models\Quiz;
+
+class QuizController
 {
-    protected $db;
+    private $model;
 
-    public function __construct(Database $db)
+    public function __construct(Quiz $model)
     {
-        $this->db = $db;
+        $this->model = $model;
     }
 
+    public function getQuizList(): array
+    {
+        return $this->model->getQuizList();
+    }
+
+    /**
+     * retrieve Quiz questions
+     * @param $quizId integer
+     */
+    public function getQuizQuestions(int $quizId): array
+    {
+        return [
+            'status' => 1,
+            'data' => $this->model->getQuizQuestions($quizId)
+        ];
+    }
 }

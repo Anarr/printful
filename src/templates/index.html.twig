@@ -1,13 +1,16 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
+    {% if error.auth_error %}
+        <p>{{ error.auth_error }}</p>
+    {% endif %}
     <div class="form">
         <form method="POST" id="quizForm">
             <input type="text" name="username" id="username">
             <select name="quiz_type" id="quiz_type">
                 <option value="0">Choose test</option>
                 {% for quiz in quizList %}
-                    <option value="{{quiz.id}}">{{quiz.name}}</option>
+                    <option value="{{quiz.id}}">{{quiz.title}}</option>
                 {% endfor %}
             </select>
             <button onclick="return validateQuizForm()">Start</button>

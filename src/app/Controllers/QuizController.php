@@ -13,6 +13,9 @@ class QuizController
         $this->model = $model;
     }
 
+    /**
+     * retrieve Quiz list
+     */
     public function getQuizList(): array
     {
         return $this->model->getQuizList();
@@ -42,9 +45,10 @@ class QuizController
 
         if (is_array($answers['content']) && !empty($answers['quiz_id'])) {
 
+            // get qiz question asnwers
             $quizAnswers = $this->model->getQuizAnswers($answers['quiz_id']);
 
-
+            // compare quiz question answers with user answers
             foreach($quizAnswers as $key => $value) {
 
                 if ($answers['content'][$key]['question_id'] == $value['id'] && $answers['content'][$key]['answer'] == $value['answer']) {

@@ -114,6 +114,7 @@ showResult = () => {
 function answerQuestion(e) {
     selectedVariant = e.getAttribute('data-answer'),
     answer = answers[selectedVariant-1];
+    console.log(answer);
     resetAnswers();
     answer.style.backgroundColor = "#02A9F5";
 }

@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-    {% if error.auth_error %}
-        <p>{{ error.auth_error }}</p>
-    {% endif %}
     <div class="form">
         <form method="POST" id="quizForm">
+            {% if error.auth_error %}
+                <p>{{ error.auth_error }}</p>
+            {% endif %}
             <input type="text" name="username" id="username">
             <p id="error_username">* Username is required</p>
             <select name="quiz_type" id="quiz_type">

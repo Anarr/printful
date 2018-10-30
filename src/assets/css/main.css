@@ -110,3 +110,9 @@ button {
 #error_username, #error_quiz {
     display: none;
 }
+
+@media (max-width: 768px) {
+    .col {
+        height: auto;
+    }    
+}

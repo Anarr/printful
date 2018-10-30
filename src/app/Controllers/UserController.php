@@ -15,6 +15,8 @@ class UserController
     }
 
     /**
+     * get authenticated user
+     * @param string $username
      * @return array
      */
     public function getUser(string $username): array

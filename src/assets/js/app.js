@@ -154,7 +154,7 @@ async function loadQuizContent(questionStep) {
 
     options.forEach(element => {
         quizItem+= `
-            <div class="item" onclick="answerQuestion(this)" data-answer="${element.option_order}">a) ${element.answer}</div>
+            <div class="item" onclick="answerQuestion(this)" data-answer="${element.option_order}">${element.answer}</div>
         `;
     });    
     document.getElementsByClassName('quiz_question')[0].innerHTML = `<h1>${content[questionStep].title}</h1>`;

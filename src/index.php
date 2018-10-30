@@ -23,13 +23,14 @@ switch($requestUrl) {
     case '/':   
 
         $currentUser = [];
-
+        //check user credentials
         if (!empty($_POST['username']) && !empty($_POST['quiz_type'])) {
             
             $quizType = filter_var(intval($_POST['quiz_type']), FILTER_SANITIZE_NUMBER_INT);
             
             $getUser = $userController->getUser($_POST['username']);
-
+            
+            // redirect user quiz step if data valid
             if (count($getUser) >0) {
                 $_SESSION['user'] = $getUser;
                 $_SESSION['quiz']['id'] = $quizType;
@@ -48,7 +49,7 @@ switch($requestUrl) {
         break;
 
     case '/tests':
-        
+        // check if authenticated user
         if (!$_SESSION['user']) {
             header('Location: /');
             exit;            
@@ -59,6 +60,7 @@ switch($requestUrl) {
         ]);
         break;
     case '/result':
+        // get current user result for selected quiz
         $result = $quizController->getUserQuizResult($_SESSION['user']['id'], $_SESSION['quiz']['id']);
         
         echo $twig->render('result.html.twig', [
@@ -70,13 +72,17 @@ switch($requestUrl) {
     case '/questions':
         
         $quizId = $_SESSION['quiz']['id'];
-        
+        // determine request method
         if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+
             $questions = $quizController->getQuizQuestions($quizId);
             header('Content-Type: application/json');
             echo json_encode($questions);
+            
         } elseif($_SERVER['REQUEST_METHOD'] == 'POST') {
+
             $jsonBody = json_decode(file_get_contents('php://input'), true);
+            
             $answers = [
                 'quiz_id' => $quizId,
                 'content' => $jsonBody['content']

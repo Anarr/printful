@@ -1,4 +1,4 @@
-# printful
+# Printful
 Php developer technical task
 
 # Used native codes for both frontend and backend side

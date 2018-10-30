@@ -3,10 +3,12 @@ Php developer technical task
 
 # Used native codes for both frontend and backend side
 
-for run application enter src/ directory and run php -S localhost:8000
+For run application enter src/ directory and run php -S localhost:8000
 
+# Database
 Mysql dump files stored under src/Dump20181030 directory
 
+# Test data
 Test users list:
   Anar,
   Julia,

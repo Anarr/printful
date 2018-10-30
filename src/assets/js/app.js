@@ -61,11 +61,11 @@ startQuiz = () => {
 }
 
 nextQuestion = () => {
+    
     progressbarWidth = document.getElementById('progressbar') != null ? document.getElementById('progressbar').offsetWidth : 0,
     answers = document.getElementsByClassName('item') != null ? document.getElementsByClassName('item') : '';
     activeProgressBarWidth = Math.floor(progressbarWidth/questionCount)
     
-    // resetAnswers();
     if (selectedVariant != -1) {
         questionStep++;
         
@@ -91,7 +91,7 @@ nextQuestion = () => {
             'question_id': parseInt(questionId), 
             'answer': parseInt(selectedVariant)
         });   
-        console.log(userAnswers);   
+
     } else if(questionCount != questionStep) {
         alert('choose at least one answer');
     }
@@ -114,7 +114,6 @@ showResult = () => {
 function answerQuestion(e) {
     selectedVariant = e.getAttribute('data-answer'),
     answer = answers[selectedVariant-1];
-    console.log(answer);
     resetAnswers();
     answer.style.backgroundColor = "#02A9F5";
 }
